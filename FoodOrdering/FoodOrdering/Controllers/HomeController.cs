@@ -10,7 +10,7 @@ namespace FoodOrdering.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return File("~/Views/Home/index.html", "text/html");
         }
     }
 }
