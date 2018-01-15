@@ -1,21 +1,12 @@
 ﻿var LoginModule = angular.module('LoginPage', []);
 
-LoginModule.controller('LoginController', function ($scope, $http, LoginService) {
+LoginModule.controller('LoginController', function ($scope, $http) {
     $scope.regexUsername = "^[a-zA-Z0-9]*$";
     $scope.regexPassword = "^[a-zA-Z0-9]*$";
-    $scope.regexName = "^[a-zA-Z]*$";
+    $scope.regexName = "^[A-Za-z ]+$";
     $scope.regexContact = "^[0-9]*$";
-    $scope.login = function (form) {
-        return $http({
-            method: 'POST',
-            url: '/Home/UserLogin',
-            data: JSON.stringify(form),
-            headers: { 'content-type': 'application/json' }
-        }).success(function (data, status, headers, config) {
-
-        }).error(function (data, status, headers, config) {
-
-        });
+    $scope.Login = function () {
+        
     }
 });
 
@@ -23,23 +14,27 @@ LoginModule.controller('LoginController', function ($scope, $http, LoginService)
 LoginModule.controller('RegisterController', function ($scope, $http) {
     $scope.regexUsername = "^[a-zA-Z0-9]*$";
     $scope.regexPassword = "^[a-zA-Z0-9]*$";
-    $scope.regexName = "^[a-zA-Z]*$";
+    $scope.regexName = "^[A-Za-z ]+$";
     $scope.regexContact = "^[0-9]*$";
     $scope.IsMatch = false;
-    $scope.register = function (form) {
-        return $http({
+
+    $scope.register = {};
+    $scope.Register = function () {
+        console.log(JSON.stringify($scope.register));
+        $http({
             method: 'POST',
-            url: '/Home/UserRegister',
-            data: JSON.stringify(form),
+            url: '/api/ClientsApi',
+            data: JSON.stringify($scope.register),
             headers: { 'content-type': 'application/json' }
-        }).success(function (data, status, headers, config) {
-
-        }).error(function (data, status, headers, config) {
-
+        }).then(function (success) {
+            alert("User successfully registered :)");
+            $scope.register.length = 0;
+            }, function (error) {
+                alert("Error ! Register unsuccessful");
         });
     }
     $scope.passwordEquality = function () {
-        if ($scope.RegisterPassword != $scope.ConfirmPassword) {
+        if ($scope.register.Password != $scope.ConfirmPassword) {
             $scope.IsMatch = true;
         }
         else  $scope.IsMatch = false;

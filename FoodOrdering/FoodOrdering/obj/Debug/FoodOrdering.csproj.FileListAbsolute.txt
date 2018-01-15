@@ -86,7 +86,13 @@ E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\Microsoft.AI.
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\Microsoft.AI.ServerTelemetryChannel.xml
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\Microsoft.AI.WindowsServer.xml
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\Microsoft.AI.Web.xml
-E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\obj\Debug\FoodOrdering.csprojResolveAssemblyReference.cache
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\obj\Debug\FoodOrdering.csproj.CoreCompileInputs.cache
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\obj\Debug\FoodOrdering.dll
 E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\obj\Debug\FoodOrdering.pdb
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Net.Http.Formatting.dll
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Web.Http.dll
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Web.Http.WebHost.dll
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Net.Http.Formatting.xml
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Web.Http.xml
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\bin\System.Web.Http.WebHost.xml
+E:\cyber group projects\FoodOrdering\FoodOrdering\FoodOrdering\obj\Debug\FoodOrdering.csprojResolveAssemblyReference.cache
