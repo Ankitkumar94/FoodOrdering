@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+
+<html>
+<head>
+    <title> Food Ordering Application </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/loginRegister")
+    @Scripts.Render("~/bundles/Modules")
+</head>
+<body ng-app="LoginPage">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="login-form" name="login-form" ng-submit="login(login-form)" ng-controller="LoginController" method="post" role="form" style="display: block;">
+                                    <div class="form-group">
+                                        <input type="text" name="username" id="username" ng-model="Username" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" ng-model="Password" tabindex="2" class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group text-center">
+                                        <input type="checkbox" tabindex="3" class="" name="login-as" id="login-as">
+                                        <label for="login-as"> Login as Vendor </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" ng-disabled="login-form.$invalid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form id="register-form" name="register-form" ng-submit="register(register-form)" ng-controller="RegisterController" method="post" role="form" style="display: none;">
+                                    <div class="form-group">
+                                        <input type="text" name="register-username" id="register-username" ng-model="RegisterUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" ng-model="Email" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="register-password" id="register-password" ng-model="RegisterPassword" tabindex="2" class="form-control" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-password" id="confirm-password" ng-model="ConfirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="name" id="name" ng-model="Name" tabindex="2" class="form-control" placeholder="Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="address" id="address" ng-model="Address" tabindex="2" class="form-control" placeholder="Address" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="contact" id="contact" ng-model="Contact" tabindex="2" class="form-control" placeholder="Contact Number" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" ng-disabled="register-form.$invalid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
