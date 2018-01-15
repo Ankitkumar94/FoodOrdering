@@ -29,46 +29,71 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-12">
-                                <form id="login-form" name="login-form" ng-submit="login(login-form)" ng-controller="LoginController" method="post" role="form" style="display: block;">
-                                    <div class="form-group">
-                                        <input type="text" name="username" id="username" ng-model="Username" tabindex="1" class="form-control" placeholder="Username" value="" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" ng-model="Password" tabindex="2" class="form-control" placeholder="Password" required>
-                                    </div>
-                                    <div class="form-group text-center">
-                                        <input type="checkbox" tabindex="3" class="" name="login-as" id="login-as">
-                                        <label for="login-as"> Login as Vendor </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" />
+                                <form novalidate id="login-form" name="loginForm" ng-submit="login(loginForm)" ng-controller="LoginController" method="post" role="form" style="display: block;">
+                                    <div class="form-group">                                      
+                                            <input type="text" name="username" id="username" ng-model="login.Username" ng-pattern="regexUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>                                                                     
+                                            <span style="color:red" ng-show="loginForm.username.$error.pattern" class="help-block">
+                                                Please Enter Valid User Name.!
+                                            </span>                                       
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="password" name="password" id="password" ng-model="login.Password" ng-pattern="regexUsername" tabindex="2" class="form-control" placeholder="Password" required>
+                                            <span style="color:red" ng-show="loginForm.password.$error.pattern" class="help-block">
+                                                Password doesn't meet the criteria !
+                                            </span>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <input type="checkbox" tabindex="3" class="" ng-model="login.loginAsVendor" name="loginAs" id="loginAs">
+                                            <label for="login-as"> Login as Vendor </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6 col-sm-offset-3">
+                                                    <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </form>
-                                <form id="register-form" name="register-form" ng-submit="register(register-form)" ng-controller="RegisterController" method="post" role="form" style="display: none;">
+                                <form id="register-form" name="registerForm" ng-submit="register(registerForm)" ng-controller="RegisterController" method="post" role="form" style="display: none;">
                                     <div class="form-group">
-                                        <input type="text" name="register-username" id="register-username" ng-model="RegisterUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                        <input type="text" name="registerUsername" id="registerUsername" ng-model="RegisterUsername" ng-pattern="regexUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                        <span style="color:red" ng-show="registerForm.registerUsername.$error.pattern" class="help-block">
+                                            Please Enter a valid Username !
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" ng-model="Email" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                                        <span style="color:red" ng-show="registerForm.email.$invalid" class="help-block">
+                                            Email not valid !
+                                        </span>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="register-password" id="register-password" ng-model="RegisterPassword" tabindex="2" class="form-control" placeholder="Password" required>
+                                        <input type="password" name="registerPassword" id="registerPassword" ng-model="RegisterPassword" ng-pattern="regexPassword" tabindex="2" class="form-control" placeholder="Password" required>
+                                        <span style="color:red" ng-show="registerForm.registerPassword.$error.pattern" class="help-block">
+                                            Password doesn't meet the criteria !
+                                        </span>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirm-password" ng-model="ConfirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" ng-model="ConfirmPassword" ng-blur="passwordEquality()" tabindex="2" class="form-control" placeholder="Confirm Password" required>
+                                        
+                                        <span style="color:red" ng-show="IsMatch" class="help-block">
+                                            Your password must match !
+                                        </span>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="name" id="name" ng-model="Name" tabindex="2" class="form-control" placeholder="Name" required>
+                                        <input type="text" name="name" id="name" ng-model="Name" ng-pattern="regexName" tabindex="2" class="form-control" placeholder="Name" required>
+                                        <span style="color:red" ng-show="registerForm.name.$error.pattern" class="help-block">
+                                            Name not valid !
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <input type="text" name="address" id="address" ng-model="Address" tabindex="2" class="form-control" placeholder="Address" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="contact" id="contact" ng-model="Contact" tabindex="2" class="form-control" placeholder="Contact Number" required>
+                                        <input type="text" name="contact" id="contact" ng-model="Contact" ng-pattern="regexContact" tabindex="2" class="form-control" placeholder="Contact Number" required>
+                                        <span style="color:red" ng-show="registerForm.contact.$error.pattern" class="help-block">
+                                            Contact must consist of numbers !
+                                        </span>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">

@@ -13,10 +13,10 @@ namespace FoodOrdering.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FoodOrderingDbContext : DbContext
+    public partial class FoodOrderingDbEntities : DbContext
     {
-        public FoodOrderingDbContext()
-            : base("name=FoodOrderingDbContext")
+        public FoodOrderingDbEntities()
+            : base("name=FoodOrderingDbEntities")
         {
         }
     

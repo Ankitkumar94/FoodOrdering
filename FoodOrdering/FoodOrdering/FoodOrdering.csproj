@@ -155,34 +155,34 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs">
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Client.cs">
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FoodOrderingModel.Context.cs">
+    <Compile Include="Models\FoodPortalModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FoodOrderingModel.Context.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FoodOrderingModel.cs">
+    <Compile Include="Models\FoodPortalModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FoodOrderingModel.Designer.cs">
+    <Compile Include="Models\FoodPortalModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FoodOrderingModel.edmx</DependentUpon>
+      <DependentUpon>FoodPortalModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vendor.cs">
-      <DependentUpon>FoodOrderingModel.tt</DependentUpon>
+      <DependentUpon>FoodPortalModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,15 +194,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\FoodOrderingModel.Context.tt">
+    <Content Include="Models\FoodPortalModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FoodOrderingModel.edmx</DependentUpon>
-      <LastGenOutput>FoodOrderingModel.Context.cs</LastGenOutput>
+      <DependentUpon>FoodPortalModel.edmx</DependentUpon>
+      <LastGenOutput>FoodPortalModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\FoodOrderingModel.tt">
+    <Content Include="Models\FoodPortalModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FoodOrderingModel.edmx</DependentUpon>
-      <LastGenOutput>FoodOrderingModel.cs</LastGenOutput>
+      <DependentUpon>FoodPortalModel.edmx</DependentUpon>
+      <LastGenOutput>FoodPortalModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
@@ -216,14 +216,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\angular.min.js.map" />
-    <EntityDeploy Include="Models\FoodOrderingModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FoodOrderingModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\FoodOrderingModel.edmx.diagram">
-      <DependentUpon>FoodOrderingModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Scripts\angular-route.min.js.map" />
+    <EntityDeploy Include="Models\FoodPortalModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>FoodPortalModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\FoodPortalModel.edmx.diagram">
+      <DependentUpon>FoodPortalModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
