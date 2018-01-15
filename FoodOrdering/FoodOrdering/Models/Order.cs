@@ -16,7 +16,7 @@ namespace FoodOrdering.Models
     {
         public int OrderId { get; set; }
         public Nullable<int> CartId { get; set; }
-        public Nullable<int> VendorId { get; set; }
+        public string VendorId { get; set; }
         public Nullable<bool> Payment { get; set; }
         public string Status { get; set; }
     

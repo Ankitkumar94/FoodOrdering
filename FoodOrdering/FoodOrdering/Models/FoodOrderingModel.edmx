@@ -10,14 +10,14 @@
             <PropertyRef Name="CartId" />
           </Key>
           <Property Name="CartId" Type="int" Nullable="false" />
-          <Property Name="ClientId" Type="int" />
+          <Property Name="ClientId" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductId" Type="int" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="ClientId" />
           </Key>
-          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="ClientId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar(max)" />
@@ -30,7 +30,7 @@
           </Key>
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="CartId" Type="int" />
-          <Property Name="VendorId" Type="int" />
+          <Property Name="VendorId" Type="nvarchar" MaxLength="50" />
           <Property Name="Payment" Type="bit" />
           <Property Name="Status" Type="nvarchar(max)" />
         </EntityType>
@@ -48,7 +48,7 @@
           <Key>
             <PropertyRef Name="VendorId" />
           </Key>
-          <Property Name="VendorId" Type="int" Nullable="false" />
+          <Property Name="VendorId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar(max)" />

@@ -21,7 +21,7 @@ namespace FoodOrdering.Models
         }
     
         public int CartId { get; set; }
-        public Nullable<int> ClientId { get; set; }
+        public string ClientId { get; set; }
         public Nullable<int> ProductId { get; set; }
     
         public virtual Client Client { get; set; }

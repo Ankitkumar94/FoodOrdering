@@ -20,7 +20,7 @@ namespace FoodOrdering.Models
             this.Orders = new HashSet<Order>();
         }
     
-        public int VendorId { get; set; }
+        public string VendorId { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }

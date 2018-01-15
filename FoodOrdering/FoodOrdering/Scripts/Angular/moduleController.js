@@ -1,6 +1,8 @@
 ﻿var LoginModule = angular.module('LoginPage', []);
 
 LoginModule.controller('LoginController', function ($scope, LoginService) {
+    $scope.regexUsername = "^[a-zA-Z0-9]*$";
+    $scope.regexPassword = "^[a-zA-Z0-9]*$";
     $scope.login = function (form) {
 
     }
