@@ -18,6 +18,21 @@ namespace FoodOrdering
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "First",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "First", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "Blog",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Blog", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "About",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional }
+            );
         }
     }
 }

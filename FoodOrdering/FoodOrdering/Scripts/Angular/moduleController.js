@@ -5,8 +5,29 @@ LoginModule.controller('LoginController', function ($scope, $http) {
     $scope.regexPassword = "^[a-zA-Z0-9]*$";
     $scope.regexName = "^[A-Za-z ]+$";
     $scope.regexContact = "^[0-9]*$";
+    $scope.showLoginMessage = false;
+
     $scope.Login = function () {
-        
+        var dataObj = {
+            ClientId: $scope.ClientId,
+            Password: $scope.Password,
+            Name: null,
+            Email: null,
+            Address: null,
+            Contact: null
+        };
+        console.log(JSON.stringify(dataObj));
+        $http({
+            method: 'POST',
+            url: '/Home/UserLogin',
+            data: JSON.stringify(dataObj),
+            headers: { 'content-type': 'application/json' }
+        }).then(function successCallback(response) {
+            $scope.loginMessage = response.data;
+            $scope.showLoginMessage = true;
+            }, function errorCallback(response) {
+                alert(response.data);
+            });
     }
 });
 
@@ -23,7 +44,7 @@ LoginModule.controller('RegisterController', function ($scope, $http) {
         console.log(JSON.stringify($scope.register));
         $http({
             method: 'POST',
-            url: '/api/ClientsApi',
+            url: '/api/ClientsApi/PostClient',
             data: JSON.stringify($scope.register),
             headers: { 'content-type': 'application/json' }
         }).then(function (success) {
