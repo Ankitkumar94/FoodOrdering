@@ -102,7 +102,9 @@ namespace FoodOrdering.Controllers
                     }
                 }
                 throw raise;
-                /*
+            }
+            catch(DbUpdateConcurrencyException)
+            {
                 if (ClientExists(client.ClientId))
                 {
                     return Conflict();
@@ -111,7 +113,6 @@ namespace FoodOrdering.Controllers
                 {
                     throw;
                 }
-                */
             }
 
             return CreatedAtRoute("DefaultApi", new { id = client.ClientId }, client);
