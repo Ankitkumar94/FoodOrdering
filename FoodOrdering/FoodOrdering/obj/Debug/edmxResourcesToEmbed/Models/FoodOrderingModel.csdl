@@ -4,24 +4,21 @@
     <Key>
       <PropertyRef Name="CartId" />
     </Key>
-    <Property Name="CartId" Type="Int32" Nullable="false" />
-    <Property Name="ClientId" Type="Int32" />
-    <Property Name="ProductId" Type="Int32" />
-    <NavigationProperty Name="Client" Relationship="Self.FK_Cart_Clients" FromRole="Cart" ToRole="Clients" />
-    <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Products" FromRole="Cart" ToRole="Products" />
+    <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Cart" FromRole="Cart" ToRole="Orders" />
   </EntityType>
   <EntityType Name="Client">
     <Key>
       <PropertyRef Name="ClientId" />
     </Key>
-    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Clients" FromRole="Clients" ToRole="Cart" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -29,7 +26,7 @@
     </Key>
     <Property Name="OrderId" Type="Int32" Nullable="false" />
     <Property Name="CartId" Type="Int32" />
-    <Property Name="VendorId" Type="Int32" />
+    <Property Name="VendorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Payment" Type="Boolean" />
     <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Cart" Relationship="Self.FK_Orders_Cart" FromRole="Orders" ToRole="Cart" />
@@ -39,51 +36,28 @@
     <Key>
       <PropertyRef Name="ProductId" />
     </Key>
-    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Price" Type="Single" />
     <Property Name="Offer" Type="Boolean" />
-    <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Products" FromRole="Products" ToRole="Cart" />
   </EntityType>
   <EntityType Name="Vendor">
     <Key>
       <PropertyRef Name="VendorId" />
     </Key>
-    <Property Name="VendorId" Type="Int32" Nullable="false" />
+    <Property Name="VendorId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Vendors" FromRole="Vendors" ToRole="Orders" />
-    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
-  <Association Name="FK_Cart_Clients">
-    <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
-    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clients">
-        <PropertyRef Name="ClientId" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ClientId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Cart_Products">
-    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Orders_Cart">
-    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Orders" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cart">
@@ -106,20 +80,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="FoodOrderingDbContext" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="FoodOrderingDbEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Carts" EntityType="Self.Cart" />
     <EntitySet Name="Clients" EntityType="Self.Client" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="Vendors" EntityType="Self.Vendor" />
-    <AssociationSet Name="FK_Cart_Clients" Association="Self.FK_Cart_Clients">
-      <End Role="Clients" EntitySet="Clients" />
-      <End Role="Cart" EntitySet="Carts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Cart" EntitySet="Carts" />
-    </AssociationSet>
     <AssociationSet Name="FK_Orders_Cart" Association="Self.FK_Orders_Cart">
       <End Role="Cart" EntitySet="Carts" />
       <End Role="Orders" EntitySet="Orders" />
@@ -128,5 +94,41 @@
       <End Role="Vendors" EntitySet="Vendors" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
+    <FunctionImport Name="deleteCarts">
+      <Parameter Name="cartid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleteProducts">
+      <Parameter Name="productId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deleteVendors">
+      <Parameter Name="vendorId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upsertCarts">
+      <Parameter Name="clientid" Mode="In" Type="String" />
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="upsertClients">
+      <Parameter Name="clientId" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="contact" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="upsertProducts">
+      <Parameter Name="productId" Mode="In" Type="Int32" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="category" Mode="In" Type="String" />
+      <Parameter Name="price" Mode="In" Type="Single" />
+      <Parameter Name="offer" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="upsertVendors">
+      <Parameter Name="vendorId" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="name" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="contact" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
 </Schema>

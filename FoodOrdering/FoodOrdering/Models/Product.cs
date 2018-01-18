@@ -14,19 +14,10 @@ namespace FoodOrdering.Models
     
     public partial class Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.Carts = new HashSet<Cart>();
-        }
-    
         public int ProductId { get; set; }
         public string Name { get; set; }
         public string Category { get; set; }
         public Nullable<float> Price { get; set; }
         public Nullable<bool> Offer { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

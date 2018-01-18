@@ -33,6 +33,15 @@ namespace FoodOrdering.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
     
+        public virtual int deleteCarts(Nullable<int> cartid)
+        {
+            var cartidParameter = cartid.HasValue ?
+                new ObjectParameter("cartid", cartid) :
+                new ObjectParameter("cartid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteCarts", cartidParameter);
+        }
+    
         public virtual int deleteProducts(Nullable<int> productId)
         {
             var productIdParameter = productId.HasValue ?
@@ -49,6 +58,19 @@ namespace FoodOrdering.Models
                 new ObjectParameter("vendorId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deleteVendors", vendorIdParameter);
+        }
+    
+        public virtual int upsertCarts(string clientid, Nullable<int> productid)
+        {
+            var clientidParameter = clientid != null ?
+                new ObjectParameter("clientid", clientid) :
+                new ObjectParameter("clientid", typeof(string));
+    
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("upsertCarts", clientidParameter, productidParameter);
         }
     
         public virtual int upsertClients(string clientId, string password, string name, string email, string address, string contact)

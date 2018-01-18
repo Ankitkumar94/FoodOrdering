@@ -19,20 +19,21 @@ namespace FoodOrdering
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-                name: "First",
+                name: "Index1",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "First", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index1", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-                name: "Blog",
+                name: "ClientIndex",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Blog", id = UrlParameter.Optional }
+                defaults: new { controller = "Main", action = "ClientIndex", id = UrlParameter.Optional }
             );
             routes.MapRoute(
-                name: "About",
+                name: "VendorIndex",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "About", id = UrlParameter.Optional }
+                defaults: new { controller = "Main", action = "VendorIndex", id = UrlParameter.Optional }
             );
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="FoodOrderingDbModelStoreContainer" CdmEntityContainer="FoodOrderingDbContext">
+  <EntityContainerMapping StorageEntityContainer="FoodOrderingDbModelStoreContainer" CdmEntityContainer="FoodOrderingDbEntities1">
     <EntitySetMapping Name="Carts">
       <EntityTypeMapping TypeName="FoodOrderingDbModel.Cart">
         <MappingFragment StoreEntitySet="Cart">
@@ -13,10 +13,10 @@
     <EntitySetMapping Name="Clients">
       <EntityTypeMapping TypeName="FoodOrderingDbModel.Client">
         <MappingFragment StoreEntitySet="Clients">
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="ClientId" ColumnName="ClientId" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Contact" ColumnName="Contact" />
         </MappingFragment>
@@ -47,14 +47,21 @@
     <EntitySetMapping Name="Vendors">
       <EntityTypeMapping TypeName="FoodOrderingDbModel.Vendor">
         <MappingFragment StoreEntitySet="Vendors">
-          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="VendorId" ColumnName="VendorId" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="Contact" ColumnName="Contact" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deleteCarts" FunctionName="FoodOrderingDbModel.Store.deleteCarts" />
+    <FunctionImportMapping FunctionImportName="deleteProducts" FunctionName="FoodOrderingDbModel.Store.deleteProducts" />
+    <FunctionImportMapping FunctionImportName="deleteVendors" FunctionName="FoodOrderingDbModel.Store.deleteVendors" />
+    <FunctionImportMapping FunctionImportName="upsertCarts" FunctionName="FoodOrderingDbModel.Store.upsertCarts" />
+    <FunctionImportMapping FunctionImportName="upsertClients" FunctionName="FoodOrderingDbModel.Store.upsertClients" />
+    <FunctionImportMapping FunctionImportName="upsertProducts" FunctionName="FoodOrderingDbModel.Store.upsertProducts" />
+    <FunctionImportMapping FunctionImportName="upsertVendors" FunctionName="FoodOrderingDbModel.Store.upsertVendors" />
   </EntityContainerMapping>
 </Mapping>

@@ -56,5 +56,12 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deleteCarts" FunctionName="FoodOrderingDbModel.Store.deleteCarts" />
+    <FunctionImportMapping FunctionImportName="deleteProducts" FunctionName="FoodOrderingDbModel.Store.deleteProducts" />
+    <FunctionImportMapping FunctionImportName="deleteVendors" FunctionName="FoodOrderingDbModel.Store.deleteVendors" />
+    <FunctionImportMapping FunctionImportName="upsertCarts" FunctionName="FoodOrderingDbModel.Store.upsertCarts" />
+    <FunctionImportMapping FunctionImportName="upsertClients" FunctionName="FoodOrderingDbModel.Store.upsertClients" />
+    <FunctionImportMapping FunctionImportName="upsertProducts" FunctionName="FoodOrderingDbModel.Store.upsertProducts" />
+    <FunctionImportMapping FunctionImportName="upsertVendors" FunctionName="FoodOrderingDbModel.Store.upsertVendors" />
   </EntityContainerMapping>
 </Mapping>

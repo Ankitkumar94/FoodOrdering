@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FoodOrderingDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FoodOrderingDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="CartId" />
           </Key>
-          <Property Name="CartId" Type="int" Nullable="false" />
-          <Property Name="ClientId" Type="nvarchar" MaxLength="50" />
-          <Property Name="ProductId" Type="int" />
+          <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
@@ -38,7 +38,7 @@
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="Category" Type="nvarchar(max)" />
           <Property Name="Price" Type="real" />
@@ -55,32 +55,10 @@
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="Contact" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK_Cart_Clients">
-          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cart_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Orders_Cart">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
@@ -103,11 +81,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="deleteCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cartid" Type="int" Mode="In" />
+        </Function>
         <Function Name="deleteProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productId" Type="int" Mode="In" />
         </Function>
         <Function Name="deleteVendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="vendorId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="upsertCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientid" Type="nvarchar" Mode="In" />
+          <Parameter Name="productid" Type="int" Mode="In" />
         </Function>
         <Function Name="upsertClients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="clientId" Type="nvarchar" Mode="In" />
@@ -138,14 +123,6 @@
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Cart_Clients" Association="Self.FK_Cart_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Cart" EntitySet="Cart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Cart" EntitySet="Cart" />
-          </AssociationSet>
           <AssociationSet Name="FK_Orders_Cart" Association="Self.FK_Orders_Cart">
             <End Role="Cart" EntitySet="Cart" />
             <End Role="Orders" EntitySet="Orders" />
@@ -155,7 +132,8 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FoodOrderingDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -163,11 +141,9 @@
           <Key>
             <PropertyRef Name="CartId" />
           </Key>
-          <Property Name="CartId" Type="Int32" Nullable="false" />
-          <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProductId" Type="Int32" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_Cart_Clients" FromRole="Cart" ToRole="Clients" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Products" FromRole="Cart" ToRole="Products" />
+          <Property Name="CartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Cart" FromRole="Cart" ToRole="Orders" />
         </EntityType>
         <EntityType Name="Client">
@@ -180,7 +156,6 @@
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Clients" FromRole="Clients" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -198,12 +173,11 @@
           <Key>
             <PropertyRef Name="ProductId" />
           </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Single" />
           <Property Name="Offer" Type="Boolean" />
-          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Products" FromRole="Products" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Vendor">
           <Key>
@@ -217,32 +191,10 @@
           <Property Name="Contact" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Vendors" FromRole="Vendors" ToRole="Orders" />
         </EntityType>
-        <Association Name="FK_Cart_Clients">
-          <End Role="Clients" Type="Self.Client" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clients">
-              <PropertyRef Name="ClientId" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Cart_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Orders_Cart">
-          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cart">
@@ -271,14 +223,6 @@
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="Vendors" EntityType="Self.Vendor" />
-          <AssociationSet Name="FK_Cart_Clients" Association="Self.FK_Cart_Clients">
-            <End Role="Clients" EntitySet="Clients" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Orders_Cart" Association="Self.FK_Orders_Cart">
             <End Role="Cart" EntitySet="Carts" />
             <End Role="Orders" EntitySet="Orders" />
@@ -287,11 +231,18 @@
             <End Role="Vendors" EntitySet="Vendors" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
+          <FunctionImport Name="deleteCarts">
+            <Parameter Name="cartid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="deleteProducts">
             <Parameter Name="productId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deleteVendors">
             <Parameter Name="vendorId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="upsertCarts">
+            <Parameter Name="clientid" Mode="In" Type="String" />
+            <Parameter Name="productid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="upsertClients">
             <Parameter Name="clientId" Mode="In" Type="String" />
@@ -378,8 +329,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deleteCarts" FunctionName="FoodOrderingDbModel.Store.deleteCarts" />
           <FunctionImportMapping FunctionImportName="deleteProducts" FunctionName="FoodOrderingDbModel.Store.deleteProducts" />
           <FunctionImportMapping FunctionImportName="deleteVendors" FunctionName="FoodOrderingDbModel.Store.deleteVendors" />
+          <FunctionImportMapping FunctionImportName="upsertCarts" FunctionName="FoodOrderingDbModel.Store.upsertCarts" />
           <FunctionImportMapping FunctionImportName="upsertClients" FunctionName="FoodOrderingDbModel.Store.upsertClients" />
           <FunctionImportMapping FunctionImportName="upsertProducts" FunctionName="FoodOrderingDbModel.Store.upsertProducts" />
           <FunctionImportMapping FunctionImportName="upsertVendors" FunctionName="FoodOrderingDbModel.Store.upsertVendors" />

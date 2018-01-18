@@ -7,6 +7,7 @@
     <script src="../../Scripts/angular.js"></script>
     <script src="../../Scripts/angular-route.js"></script>
     <script src="../../Scripts/Angular/moduleController.js"></script>
+    <script src="../../Scripts/angular-cookies.min.js"></script>
     <script src="../../Scripts/jquery-1.10.2.js"></script>
     <script src="../../Scripts/LoginRegister.js"></script>
 </head>
@@ -59,9 +60,13 @@
                                 </form>
                                 <form id="register-form" name="registerForm" ng-submit="Register()" ng-controller="RegisterController" method="post" role="form" style="display: none;">
                                     <div class="form-group">
-                                        <input type="text" name="registerUsername" id="registerUsername" ng-model="register.ClientId" ng-pattern="regexUsername" tabindex="1" class="form-control" placeholder="Username" value="" required>
+                                        <input type="text" name="registerUsername" id="registerUsername" ng-model="register.ClientId" ng-pattern="regexUsername" tabindex="1" class="form-control" placeholder="Username" value="" 
+                                               ng-blur="userNameExists()" ng-focus="clearUserNameFields()" required>
                                         <span style="color:red" ng-show="registerForm.registerUsername.$error.pattern" class="help-block">
                                             Please Enter a valid Username !
+                                        </span>
+                                        <span ng-init="False" style="color:red" ng-show="showUserNameMessage" class="help-block">
+                                            {{userNameMessage}}
                                         </span>
                                     </div>
                                     <div class="form-group">
@@ -84,9 +89,13 @@
                                         </span>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" name="email" id="email" ng-model="register.Email" tabindex="5" class="form-control" placeholder="Email Address" value="" required>
+                                        <input type="email" name="email" id="email" ng-model="register.Email" tabindex="5" class="form-control" placeholder="Email Address" value="" 
+                                               ng-blur="userEmailExists()" ng-focus="clearEmailFields()" required>
                                         <span style="color:red" ng-show="registerForm.email.$invalid" class="help-block">
                                             Email not valid !
+                                        </span>
+                                        <span style="color:red" ng-show="showEmailExistsMessage" class="help-block">
+                                            {{emailExistsMessage}}
                                         </span>
                                     </div>
                                     <div class="form-group">

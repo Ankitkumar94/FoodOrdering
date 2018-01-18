@@ -4,9 +4,9 @@
     <Key>
       <PropertyRef Name="CartId" />
     </Key>
-    <Property Name="CartId" Type="int" Nullable="false" />
-    <Property Name="ClientId" Type="nvarchar" MaxLength="50" />
-    <Property Name="ProductId" Type="int" />
+    <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Clients">
     <Key>
@@ -33,7 +33,7 @@
     <Key>
       <PropertyRef Name="ProductId" />
     </Key>
-    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" />
     <Property Name="Category" Type="nvarchar(max)" />
     <Property Name="Price" Type="real" />
@@ -50,32 +50,10 @@
     <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="Contact" Type="nvarchar(max)" />
   </EntityType>
-  <Association Name="FK_Cart_Clients">
-    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
-    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Clients">
-        <PropertyRef Name="ClientId" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ClientId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Cart_Products">
-    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-    <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductId" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ProductId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Orders_Cart">
-    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
+    <End Role="Cart" Type="Self.Cart" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Cart">
@@ -98,20 +76,48 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="deleteCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="cartid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deleteVendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vendorId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="upsertCarts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="clientid" Type="nvarchar" Mode="In" />
+    <Parameter Name="productid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="upsertClients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="clientId" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="email" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="address" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="contact" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="upsertProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productId" Type="int" Mode="In" />
+    <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="category" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="price" Type="real" Mode="In" />
+    <Parameter Name="offer" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="upsertVendors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="vendorId" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="email" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="address" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="contact" Type="nvarchar(max)" Mode="In" />
+  </Function>
   <EntityContainer Name="FoodOrderingDbModelStoreContainer">
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Cart_Clients" Association="Self.FK_Cart_Clients">
-      <End Role="Clients" EntitySet="Clients" />
-      <End Role="Cart" EntitySet="Cart" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Cart_Products" Association="Self.FK_Cart_Products">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Cart" EntitySet="Cart" />
-    </AssociationSet>
     <AssociationSet Name="FK_Orders_Cart" Association="Self.FK_Orders_Cart">
       <End Role="Cart" EntitySet="Cart" />
       <End Role="Orders" EntitySet="Orders" />
