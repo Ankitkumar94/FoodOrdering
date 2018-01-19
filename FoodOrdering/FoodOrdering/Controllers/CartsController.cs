@@ -30,14 +30,22 @@ namespace FoodOrdering.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteProductFromCart(Cart cart)
+        public JsonResult DeleteProductFromCart(Cart d)
         {
-            string sqlDelete = "EXEC deleteCarts @cartid";
-            int check = db.Database.ExecuteSqlCommand(sqlDelete, new SqlParameter("@cartid", value: cart.CartId));
-            if (check == 1)
-                return Json("Product Deleted!");
-            else
-                return Json("Product Not Deleted!");
+            //string sqlDelete = "EXEC deleteCarts @cartid";
+            //int check = db.Database.ExecuteSqlCommand(sqlDelete, new SqlParameter("@cartid", value: cart.CartId));
+            //if (check == 1)
+            //    return Json("Product Deleted!");
+            //else
+            //    return Json("Product Not Deleted!");
+
+            using (FoodOrderingDbEntities dc = new FoodOrderingDbEntities())
+            {
+                Cart cart = dc.Carts.Where(a => a.CartId.Equals(d.CartId)).FirstOrDefault();
+                dc.Carts.Remove(cart);
+                dc.SaveChanges();
+                return Json("Item deleted successfully !!");
+            }
         }
         protected override void Dispose(bool disposing)
         {

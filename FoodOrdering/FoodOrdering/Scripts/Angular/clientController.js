@@ -192,9 +192,12 @@ TopModule.factory('AddToCartService', ['$http', function ($http) {
 //SERVICE: To delete a product from cart
 TopModule.factory('DeleteFromCartService', ['$http', function ($http) {
     var Delete = function (Id) {
+        var obj = {
+            CartId: Id
+        };
         $http({
             method: 'POST',
-            data: JSON.stringify(Id),
+            data: JSON.stringify(obj),
             url: '/Carts/DeleteProductFromCart/',
             headers: { 'Content-Type': 'application/json' }
         }).then(function successCallBack(successResponse) {
