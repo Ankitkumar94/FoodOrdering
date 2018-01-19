@@ -111,7 +111,16 @@ TopModule.controller('CategoriesController', function ($scope, $http, AddToCartS
 
 TopModule.controller('CartController', function ($scope, $http, DeleteFromCartService) {
     $scope.responsecart;
-    $http.get('/Carts/GetCartData/')
+    // $http.get('/Carts/GetCartData/')
+    var obj = {
+        ClientId: localStorage.getItem("ClientId")
+    };
+    $http({
+        method: 'POST',
+        url: '/Carts/GetCartData/',
+        data: JSON.stringify(obj),
+        headers: { 'content-type': 'application/json' }
+    })
         .then(function successCallBack(response) {
             console.log(response.data);
             $scope.responsecart = response.data;

@@ -21,12 +21,12 @@ namespace FoodOrdering.Controllers
             return null;
         }
 
-        [HttpGet]
-        public JsonResult GetCartData()
+        [HttpPost]
+        public JsonResult GetCartData(Cart cart)
         {
-            var eachCartItem = (from item in db.Carts
+            var eachCartItem = (from item in db.Carts where item.ClientId.Equals(cart.ClientId)
                                 select item);
-            return Json(eachCartItem, JsonRequestBehavior.AllowGet);
+            return Json(eachCartItem);
         }
 
         [HttpPost]
