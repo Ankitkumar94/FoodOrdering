@@ -168,12 +168,13 @@ TopModule.factory('AddToCartService', ['$http', function ($http) {
     var ADD = function (id) {
         console.log('clicked on ' + id);
         var prodId = {
+            ClientId: localStorage.getItem("ClientId"),
             ProductId: id
         };
         console.log(prodId);
         $http({
             method: 'POST',
-            url: '/Products/AddProductToCart/',
+            url: '/api/CartsApi/PostCart',
             data: JSON.stringify(prodId),
             headers: {
                 'Content-Type': 'application/json'

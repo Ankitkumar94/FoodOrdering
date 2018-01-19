@@ -60,7 +60,7 @@ namespace FoodOrdering.Controllers
             return Json(eachOffer);
         }
         [HttpPost]
-        public JsonResult AddProductToCart(int? id, Product product)
+        public JsonResult AddProductToCart(Product product)
         {
             var searchProductDb = db.Products
                                     .Where(P => P.Name.Equals(product.Name)
