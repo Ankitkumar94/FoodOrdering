@@ -1,0 +1,123 @@
+<div class="container col-md-12">
+  <img id="banner" class='img-responsive img-rounded' src='./content/images/banner1.jpg'>
+  <div class="overimage row">
+    <form class="form-inline form-group">
+      <span class="glyphicon glyphicon-search form-control form-control-sm over-search "></span>
+      <input id='search' class="form-control form-control-lg" type="text" ng-change="searchProduct()" placeholder="Search...." ng-model="searchString"/>
+      <button class="btn btn-primary" type="submit" ng-click="searchProduct()">Search</button>
+      <img id="loading" ng-hide="hide_loading" class='img-responsive img-rounded' width="40" height="40" src='./content/images/loading_spinner.gif'/>
+    </form>
+  </div>
+</div>
+
+<div class='container-fluid'>
+  <h4>Quick Searches</h4>
+  <p>Discover products by categories</p>
+</div>
+
+<div class='container-fluid items' id="btns">
+      <a href='#!/Products' class="col-md-3 items-img" >
+        <img src='https://b.zmtcdn.com/images/search_tokens/app_icons/category_1.png'/>
+        <div>Products</div>
+      </a>
+      <a  href='#!/Beverages' class="col-md-3 items-img">
+        <img src='https://b.zmtcdn.com/images/search_tokens/app_icons/category_3.png'/>
+        <div>Beverages</div>
+      </a>
+      <a  href='#!/Snacks' class="col-md-3 items-img">
+        <img src='https://b.zmtcdn.com/images/search_tokens/app_icons/category_9.png'/>
+        <div>Snacks</div>
+      </a>
+      <a  href='#!/Drinks' class="col-md-3 items-img">
+        <img src='https://b.zmtcdn.com/images/search_tokens/app_icons/special_23.png'/>
+        <div>Drinks</div>
+      </a>
+</div>
+<hr>
+<br/><br/>
+
+<div class='container-fluid'>
+    <div class="cards" ng-repeat="Product in Products">
+        <center>
+            <div>
+                <h3> {{Product.Name}} </h3>
+                <img src={{Product.Image}} width="150" height="100"/> <br/><br/>
+                <span ng-if="Product.Quantity == 0" style="color:red; font-size:1"> Product out of stock !! <br/> </span>
+                <span> <b>Category:</b> {{Product.Category}} </span> <br/>
+                <span ng-if="Product.Offer == true"><b> Offers: </b>Offers Available</span>
+                <span ng-if="Product.Offer != true"><b> Offers: </b>No Offers</span>
+                <h4> Price: </h4>
+                <h4> INR: {{Product.Price}} </h4> <br/>
+                <button class="btn btn-primary" value="{{Product.ProductId}}" ng-model="id" ng-click="AddToCart($event)" ng-hide="disableCart || Product.Quantity == 0">AddToCart</button>
+            </div>
+        </center>
+      </div>
+</div>
+
+<style>
+.cards{
+  width: 21%;
+  height: 350px;
+  float: left;
+  padding-bottom: 15px;
+  margin: 20px;
+  align-content: center;
+  border: 2px solid grey;
+  background-color: lightcyan;
+  }
+
+#imgcontainer{
+  position:relative;
+  border: 1px solid black;
+}
+#banner{
+  -webkit-filter: blur(1.4px);filter: blur(1.4px);
+  height: 450px;
+  width: inherit;
+  margin-bottom: 1%;
+}
+table { 
+  border: none;
+}
+#loading {
+  float: right;
+}
+.over-search{
+  background-color: white;
+  left: 1.8%;
+  display: inline;
+  border: 0px;
+  top:-0.1%
+}
+.overimage{
+  position: absolute;
+  left:55%;
+  top:85%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  border: 0px solid black;
+  width:50%;
+}
+.overimage input{
+  display: inline;
+  background-color: white;
+  border: 0px;
+}
+#search{
+  width:70%;
+}
+a{
+  text-align: center;
+  text-shadow: 1px;
+}
+.items{
+  margin-bottom: 1%;
+}
+.items img{
+  width: 50px; height: 50px; display: inline-block;
+}
+.items-img:hover{
+  -webkit-filter: blur(0.8px);
+  filter: blur(0.8px);
+}
+</style>
